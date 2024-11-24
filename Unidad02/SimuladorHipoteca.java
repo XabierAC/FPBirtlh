@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.*;
 import java.text.DecimalFormat;
 import java.util.Locale;
 
