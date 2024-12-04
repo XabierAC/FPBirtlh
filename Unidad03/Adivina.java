@@ -89,7 +89,8 @@ public class Adivina {
     public static boolean seguirJugando(Scanner teclado) {
         System.out.println("¿Quieres jugar otra vez (S/N)?");
         String palabraIntroducida = teclado.next();
-        if (palabraIntroducida.startsWith("S") || palabraIntroducida.startsWith("s")){
+        palabraIntroducida = palabraIntroducida.toLowerCase();
+        if (palabraIntroducida.startsWith("s")){
             return true;
         }
         return false;
