@@ -1,7 +1,7 @@
 /******************************************************************************************************************
  * 
  * Nombre: Xabier Aguirrebeitia Chica 
- * Fecha: 30/11/2024 
+ * Fecha: 30/10/2024 
  * Modulo: Programación. 
  * UD: UD2 Trabajandonoslos con métodos y objetos. 
  * Tarea: Tarea Evaluación 01. Realiza un programa en Java.
