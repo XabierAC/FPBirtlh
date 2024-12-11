@@ -19,5 +19,6 @@ public class TaApren1 {
             }
         }
         System.out.println("La suma de todos los numeros es: " + sumaTotal);
+        leerFichero.close();
     }
 }
