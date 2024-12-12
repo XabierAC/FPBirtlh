@@ -1,0 +1,14 @@
+/******************************************************************************************************************
+ * 
+ * Nombre: Xabier Aguirrebeitia Chica 
+ * Fecha: 17/11/2024 
+ * Modulo: Programación. 
+ * UD: UD3 Estructúras de control. 
+ * Tarea: Tarea Practica 01.
+ * 
+ * Descripción del programa: El objetivo de esta taréa es realizar un programa que calcule la nota media entre el examen parcial, el examen final y las
+ * Unidades Didácticas para un alumno, ademas debería tener la capacidad para comprar los datos entre dos alumnos en caso de ser introducidos.
+ * 
+ * Enlace autoevaluación: https://docs.google.com/document/d/1u6JoAtE7-0qEzMY9ZjhV_jdP2pQ5hn-B/edit?usp=share_link&ouid=118079182232210410949&rtpof=true&sd=true
+ * 
+ *******************************************************************************************************************/
