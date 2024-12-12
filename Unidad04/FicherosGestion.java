@@ -73,22 +73,24 @@ public class FicherosGestion {
     escribirFichero.println("\t Linea inválida: " + palabra1);
     escribirFichero.println("\t Linea inválida: " + palabra2);
   }
-  public static void mostrarPorPantalla(int suma, double promedio, int mayor, int menor, int calidados, String palabra1, String palabra 2){
+  public static void mostrarPorPantalla(int suma, double promedio, int mayor, int menor, int validados, String palabra1, String palabra2){
     PrintStream escribirPantalla = System.out;
-    escribirFichero.println("Lineas correctas:");
-    escribirFichero.println("\t Suma: " + suma);
-    escribirFichero.println("\t Promedio: " + promedio);
-    escribirFichero.println("\t Mayor: " + mayor);
-    escribirFichero.println("\t Menor: " + menor);
-    escribirFichero.println("\t Número validados: " + validados);
-    escribirFichero.println("Lineas incorrectas:");
-    escribirFichero.println("\t Linea inválida: " + palabra1);
-    escribirFichero.println("\t Linea inválida: " + palabra2);
+    escribirPantalla.println("Lineas correctas:");
+    escribirPantalla.println("\t Suma: " + suma);
+    escribirPantalla.println("\t Promedio: " + promedio);
+    escribirPantalla.println("\t Mayor: " + mayor);
+    escribirPantalla.println("\t Menor: " + menor);
+    escribirPantalla.println("\t Número validados: " + validados);
+    escribirPantalla.println("Lineas incorrectas:");
+    escribirPantalla.println("\t Linea inválida: " + palabra1);
+    escribirPantalla.println("\t Linea inválida: " + palabra2);
     escribirPantalla.close();
   }
+}
+
 /***Suma de todos los números (Suma)
 La media de todos los números enteros (Promedio).
 Número mayor
 Número menor
 Cantidad de números enteros ***/
-} 
+
