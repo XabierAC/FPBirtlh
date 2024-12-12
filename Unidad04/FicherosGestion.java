@@ -22,8 +22,61 @@ public class FicherosGestion {
     System.out.println("Introduce el nombre del Fichero de salida");
     File ficheroSalida = new File("/Users/xabierac/Developer/GitHub/FPBirtlh/Unidad04/" + teclado.nextLine());  
     PrintStream escribirFichero = new PrintStream(ficheroSalida);
+    tratamientoDatos(ficheroEntrada, escribirFichero);
   }
-  public static void tratamientoDatos() {
+  public static void tratamientoDatos(File ficheroEntrada,PrintStream escribirFichero) throws FileNotFoundException{
+    Scanner leerDatos = new Scanner(ficheroEntrada);
+    int suma = 0;
+    double promedio = 0;
+    int mayor = 0;
+    int menor = 0;
+    int validados = 0;
+    int cont = 0;
+    String palabra1 = "";
+    String palabra2 = "";
+    while (leerDatos.hasNextLine()) {
+      if (leerDatos.hasNextInt()){
+        int numero = leerDatos.nextInt();
+        suma += numero;
+        cont ++;
+        validados ++;
+        if (mayor < numero) {
+          mayor = numero;
+        }
+        if (menor > numero || menor == 0) {
+          menor = numero;
+        }
+      }else {
+        if (palabra1 == "") {
+          palabra1 = leerDatos.nextLine();
+        } else {
+          palabra2 = leerDatos.nextLine();
+        }
+      }
+      
+    }
+    promedio = suma / cont;
+    escribirEnNuevoFichero(suma, promedio, mayor, menor, validados, palabra1, palabra2, escribirFichero);
+    mostrarPorPantalla();
+
+  }
+  public static void escribirEnNuevoFichero(int suma, double promedio, int mayor, int menor, int validados, String palabra1, String palabra2, PrintStream escribirFichero){
+    escribirFichero.println("Lineas correctas:");
+    escribirFichero.println("\t Suma: " + suma);
+    escribirFichero.println("\t Promedio: " + promedio);
+    escribirFichero.println("\t Mayor: " + mayor);
+    escribirFichero.println("\t Menor: " + menor);
+    escribirFichero.println("\t Número validados: " + validados);
+    escribirFichero.println("Lineas incorrectas:");
+    escribirFichero.println("\t Linea inválida: " + palabra1);
+    escribirFichero.println("\t Linea inválida: " + palabra2);
+  }
+  public static void mostrarPorPantalla(){
     
   }
+/***Suma de todos los números (Suma)
+La media de todos los números enteros (Promedio).
+Número mayor
+Número menor
+Cantidad de números enteros ***/
 } 
