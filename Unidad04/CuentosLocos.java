@@ -149,13 +149,20 @@ public class CuentosLocos {
 	}
 
 	public static char menuSeleccion(Scanner teclado) {
-		System.out.println("******* MENU *******");
-		System.out.println("(C)rear un \"Mad Lib\"");
-		System.out.println("(V)er un \"Mad Lib\"");
-		System.out.println("(S)alir");
-		System.out.println("Elija su opción:");
-		String opcion = teclado.nextLine().toUpperCase();
-		char opcionElegida = opcion.charAt(0);
+		char opcionElegida = 0;
+		boolean opcionCorrecta = false;
+		do {
+			System.out.println("******* MENU *******");
+			System.out.println("(C)rear un \"Mad Lib\"");
+			System.out.println("(V)er un \"Mad Lib\"");
+			System.out.println("(S)alir");
+			System.out.println("Elija su opción:");
+			String opcion = teclado.nextLine().toUpperCase();
+			opcionElegida = opcion.charAt(0);
+			if (opcionElegida == 'C' || opcionElegida == 'V' || opcionElegida == 'S') {
+				opcionCorrecta = true;
+			}
+		} while(!opcionCorrecta);
 		return opcionElegida;
 	}
 
