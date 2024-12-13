@@ -156,7 +156,6 @@ public class CuentosLocos {
 		System.out.println("Elija su opción:");
 		String opcion = teclado.nextLine().toUpperCase();
 		char opcionElegida = opcion.charAt(0);
-		System.out.println(opcionElegida);
 		return opcionElegida;
 	}
 
