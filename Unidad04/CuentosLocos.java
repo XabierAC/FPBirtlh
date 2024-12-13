@@ -7,8 +7,18 @@ public class CuentosLocos {
     public static void main(String[] args) {
 		// Scanner de tipo System in para leer los datos introducidos por el usuario mediante teclado
 		Scanner teclado = new Scanner(System.in);
+		char opcioneElegida = ' ';
         presentacion();
-		menuSeleccion(teclado);
+		do {
+			opcioneElegida = menuSeleccion(teclado);
+		if (opcioneElegida == 'C') {
+			crearCuento(teclado);
+		} else if (opcioneElegida == 'V') {
+			verCuento(teclado);
+		}
+		System.out.println();
+		} while (opcioneElegida != 'S');
+		System.out.println("Agur");
     }
      // Metodo de presentación del programa
     public static void presentacion() {
@@ -161,6 +171,9 @@ public class CuentosLocos {
 			opcionElegida = opcion.charAt(0);
 			if (opcionElegida == 'C' || opcionElegida == 'V' || opcionElegida == 'S') {
 				opcionCorrecta = true;
+			}else {
+				System.out.println("Opción incorrecta");
+				System.out.println();
 			}
 		} while(!opcionCorrecta);
 		return opcionElegida;
