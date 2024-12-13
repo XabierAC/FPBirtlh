@@ -19,6 +19,7 @@ public class CuentosLocos {
 		System.out.println();
 		} while (opcioneElegida != 'S');
 		System.out.println("Agur");
+		teclado.close();
     }
      // Metodo de presentación del programa
     public static void presentacion() {
@@ -37,19 +38,26 @@ public class CuentosLocos {
 	public static Scanner eleccionFicheroLectura(Scanner teclado) throws FileNotFoundException{
 		String pathName = "";
 		System.out.println("Nombre del fichero que quieres leer: ");
-		pathName = "/Users/xabierac/Developer/GitHub/FPBirtlh/Unidad04/" + teclado.nextLine();
+		//pathName = "/Users/xabierac/Developer/GitHub/FPBirtlh/Unidad04/" + teclado.nextLine();
+		pathName = teclado.nextLine();
 		File fichero = new File(pathName);
 		while (!fichero.canRead()) {
-			System.out.println("Fichero no encontrado. Inténtelo otra vez\n"
+			System.out.println("Fichero no encontrado. Inténtalo otra vez\n"
 			+ "Nombre del fichero: ");
 			fichero = new File(teclado.nextLine());
 		}
 		return new Scanner(fichero);
 	}
 	
+	/*Metodo para preguntar al usuario cual es el fichero de salida
+	 *Pide el nombre del fichero de salida y en caso de que no exista lo crea
+	 * @Param: Scanner teclado para leer los valores introducidos por teclado
+	 * @Return: Devuelve un String de tipo File para trabajar con el fichero de entrada.
+	 */
 	public static String eleccionFicheroSalida(Scanner teclado) {
 		System.out.println(("Nombre del fichero de salida: "));
-		String ficheroSalida = "/Users/xabierac/Developer/GitHub/FPBirtlh/Unidad04/" + teclado.nextLine();
+		//String ficheroSalida = "/Users/xabierac/Developer/GitHub/FPBirtlh/Unidad04/" + teclado.nextLine();
+		String ficheroSalida = teclado.nextLine();
 		return ficheroSalida;
 	}
 
@@ -64,13 +72,14 @@ public class CuentosLocos {
 	 */
 	public static void crearCuento(Scanner teclado) {
 		Scanner scannerLectura = null;
-
+		PrintStream ficheroSalida = null;
+        System.out.println("Crear un cuento");
 		try {
 			// Se utiliza para pedir al usuario el nombre del archivo de lectura sobre el que se va a trabajar.
 			scannerLectura = eleccionFicheroLectura(teclado);
 
 			// Fichero de salida en el que vamos a escribir el cuento rellenado por lo que nos diga el usuario.
-			PrintStream ficheroSalida = new PrintStream(eleccionFicheroSalida(teclado));
+			ficheroSalida = new PrintStream(eleccionFicheroSalida(teclado));
 
 			/* Recorremos el archivo de lectura y lo escribimos en el de salida, en el caso que haya 
 			 * huecos por rellenar los mostramos por pantalla al usuario para que este nos diga que quiere
@@ -79,9 +88,12 @@ public class CuentosLocos {
 			escribirNuevoLibro(scannerLectura, ficheroSalida, teclado);
 
 		} catch (FileNotFoundException excepcion) {
-			System.out.println("Fichero no encontrado " + excepcion.getMessage());
+			System.out.println("Fichero no encontrado. " + excepcion.getMessage());
+		} catch (Exception excepcion) {
+			System.out.println("Ha habido un error. " + excepcion.getMessage());
 		}
-	    
+		ficheroSalida.close();
+		scannerLectura.close();
 	}
 
 	/* Metodo que lee el archivo de lectura y lo pasa al archivo de salida
@@ -93,10 +105,18 @@ public class CuentosLocos {
 	 */
 	public static void escribirNuevoLibro(Scanner scannerLectura, PrintStream ficheroSalida, Scanner teclado) {
 		String linea = "";
-		while (scannerLectura.hasNextLine()) {
-			linea = scannerLectura.nextLine();
-			ficheroSalida.println(procesarLinea(linea, teclado));
-		}	
+		try {
+			while (scannerLectura.hasNextLine()) {
+				linea = scannerLectura.nextLine();
+				ficheroSalida.println(procesarLinea(linea, teclado));
+			}
+		} catch (NoSuchElementException excepcion) {
+			System.out.println("Ha habido un error con el dato introducido. " + excepcion.getMessage());
+		} catch (Exception excepcion) {
+			System.out.println("Ha habido un error. " + excepcion.getMessage());
+		}
+		
+		System.out.println("El cuento loco ha sido creado");
 	}
 
 	/* Metodo para procesar cada linea individualmente
@@ -108,24 +128,32 @@ public class CuentosLocos {
 	public static String procesarLinea(String linea, Scanner teclado) {
 		String lineaProcesada = "";
 		Scanner procesarLinea = new Scanner(linea);
-		while (procesarLinea.hasNext()) {
-			String palabra = procesarLinea.next();
-			if (palabra.startsWith("<")) {
-				int longitud = palabra.length();
-				int posicionGuion = 0;
-				palabra = palabra.substring(1, longitud - 1);
-				longitud = palabra.length();
-				posicionGuion = palabra.indexOf("-");
-				while (posicionGuion != -1) {
-					palabra = palabra.substring(0, posicionGuion) + " " + palabra.substring(posicionGuion+1, longitud);
+		try {
+			while (procesarLinea.hasNext()) {
+				String palabra = procesarLinea.next();
+				if (palabra.startsWith("<")) {
+					int longitud = palabra.length();
+					int posicionGuion = 0;
+					palabra = palabra.substring(1, longitud - 1);
+					longitud = palabra.length();
 					posicionGuion = palabra.indexOf("-");
+					while (posicionGuion != -1) {
+						palabra = palabra.substring(0, posicionGuion) + " " + palabra.substring(posicionGuion+1, longitud);
+						posicionGuion = palabra.indexOf("-");
+					}
+					System.out.println(palabra + ":");
+					palabra = teclado.nextLine();
 				}
-				System.out.println(palabra + ":");
-				palabra = teclado.nextLine();
+				lineaProcesada += palabra + " ";
 			}
-			lineaProcesada += palabra + " ";
+		}catch (NoSuchElementException excepcion) {
+			System.out.println("No se ha encontrado el elemento que buscabas. " + excepcion.getMessage());
+		} catch (Exception excepcion) {
+			System.out.println("Ha habido un error. " + excepcion.getMessage());
 		}
+		procesarLinea.close();
 		return lineaProcesada;
+		
 	}
 	
 	/*
@@ -138,7 +166,7 @@ public class CuentosLocos {
 	 */
 	public static void verCuento(Scanner teclado) {
 		Scanner scannerLectura = null;
-		System.out.println("Ver un cuento:");
+		System.out.println("Ver un cuento");
 		try {
 			// Se utiliza para pedir al usuario el nombre del archivo de lectura sobre el que se va a trabajar.
 			scannerLectura = eleccionFicheroLectura(teclado);
@@ -146,18 +174,38 @@ public class CuentosLocos {
 
 		} catch (FileNotFoundException excepcion) {
 			System.out.println("Fichero no encontrado " + excepcion.getMessage());
+		} catch (Exception excepcion) {
+			System.out.println("Ha habido un error. " + excepcion.getMessage());
 		}
-	    
+	    scannerLectura.close();
 	}
 
+
+	/* Metodo para mostrar por pantalla el texto guardado en el fichero de salida
+	 * Recorre el fichero de salida linea por linea y muestra cada una de las lineas por pantalla
+	 * @Param: Scanner scanerLectura para leer las lineas del fichero de salida que hemos creado al crear el cuento
+	 * @Return: No devuelve ningun valor
+	 */
 	public static void mostrarPorPantalla(Scanner scannerLectura) {
 		PrintStream escribirPantalla = new PrintStream(System.out);
-		while (scannerLectura.hasNextLine()) {
-			String linea = scannerLectura.nextLine();
-			escribirPantalla.println(linea);
+		try {
+			while (scannerLectura.hasNextLine()) {
+				String linea = scannerLectura.nextLine();
+				escribirPantalla.println(linea);
+			}
+		} catch (NoSuchElementException excpecion) {
+			System.out.println("No se ha localizado el elemnto. " + excpecion.getMessage());
+		} catch (Exception excepcion) {
+			System.out.println("Ha habido un error. " +excepcion.getMessage());
 		}
+		escribirPantalla.close();
 	}
 
+	/* Metodo para mostrar el menu de seleccion y que el usuario decida que quiere hacer
+	 * Le pregunta al usuario si quiere crear o ver un Mad Lib o si quiere salir
+	 * @Param: Scanner teclado para leer los valores introducidos por el usuario
+	 * @Return: char con el caracter en mayusculas de la primera letra del valor introducido por el usuario
+	 */
 	public static char menuSeleccion(Scanner teclado) {
 		char opcionElegida = 0;
 		boolean opcionCorrecta = false;
@@ -172,7 +220,7 @@ public class CuentosLocos {
 			if (opcionElegida == 'C' || opcionElegida == 'V' || opcionElegida == 'S') {
 				opcionCorrecta = true;
 			}else {
-				System.out.println("Opción incorrecta");
+				System.out.println("Opción Incorrecta");
 				System.out.println();
 			}
 		} while(!opcionCorrecta);
