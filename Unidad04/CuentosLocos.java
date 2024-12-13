@@ -85,19 +85,30 @@ public class CuentosLocos {
 		String linea = "";
 		while (scannerLectura.hasNextLine()) {
 			linea = scannerLectura.nextLine();
-			ficheroSalida.println(procesarLinea(linea));
+			ficheroSalida.println(procesarLinea(linea, teclado));
 		}	
 	}
 
-	public static String procesarLinea(String linea) {
+	public static String procesarLinea(String linea, Scanner teclado) {
 		String lineaProcesada = "";
 		Scanner procesarLinea = new Scanner(linea);
 		while (procesarLinea.hasNext()) {
 			String palabra = procesarLinea.next();
 			if (palabra.startsWith("<")) {
-				
+				int longitud = palabra.length();
+				int posicionGuion = 0;
+				palabra = palabra.substring(1, longitud - 1);
+				longitud = palabra.length();
+				posicionGuion = palabra.indexOf("-");
+				while (posicionGuion != -1) {
+					palabra = palabra.substring(0, posicionGuion) + " " + palabra.substring(posicionGuion+1, longitud);
+					posicionGuion = palabra.indexOf("-");
+				}
+				System.out.println(palabra + ":");
+				palabra = teclado.nextLine();
 			}
 			
+			lineaProcesada += palabra + " ";
 		}
 		return lineaProcesada;
 	}

@@ -1,9 +1,0 @@
-Lineas correctas:
-	 Suma: 100
-	 Promedio: 25.0
-	 Mayor: 40
-	 Menor: 10
-	 Número validados: 4
-Lineas incorrectas:
-	 Linea inválida: Hola
-	 Linea inválida: Error aquí
