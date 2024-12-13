@@ -1,18 +1,48 @@
+import java.util.*;
+import java.io.*;
 
-public class CuentosLocos3 {
+public class CuentosLocos {
     
+	// Programa de lectura y creación de cuentos locos
     public static void main(String[] args) {
-    
-        
+		// Scanner de tipo System in para leer los datos introducidos por el usuario mediante teclado
+		Scanner teclado = new Scanner(System.in);
+        presentacion();
+		crearCuento(teclado);
     }
-    
+     // Metodo de presentación del programa
     public static void presentacion() {
 		System.out.println("Bienvenidos y bienvenidas al juego de los cuentos locos.\n"
 				+ "El programa te pedirá que introduzcas una serie de palabras\n"
 				+ "que se utilizarán para completar una historia.\n" + "El resultado se guardará en un fichero.\n"
 				+ "Puedes leer esas historias siempre que quieras.\n");		
 	}
+
+	/*Metodo para preguntar al usuario cual es el fichero de lectura
+	 *Pide el nombre del fichero de entrada y comprueba si ese fichero existe, si no existe se lo indica al usuario
+	 * y le pide un nuevo nombre de fichero
+	 * @Param: Scanner teclado para leer los valores introducidos por teclado
+	 * @Return: Devuelve un Scanner de tipo File para trabajar con el fichero de entrada.
+	 */
+	public static Scanner eleccionFicheroLectura(Scanner teclado) throws FileNotFoundException{
+		String pathName = "";
+		System.out.println("Nombre del fichero que quieres leer: ");
+		pathName = "/Users/xabierac/Developer/GitHub/FPBirtlh/Unidad04/" + teclado.nextLine();
+		File fichero = new File(pathName);
+		while (!fichero.canRead()) {
+			System.out.println("Fichero no encontrado. Inténtelo otra vez\n"
+			+ "Nombre del fichero: ");
+			fichero = new File(teclado.nextLine());
+		}
+		return new Scanner(fichero);
+	}
 	
+	public static String eleccionFicheroSalida(Scanner teclado) {
+		System.out.println(("Nombre del fichero de salida: "));
+		String ficheroSalida = "/Users/xabierac/Developer/GitHub/FPBirtlh/Unidad04/" + teclado.nextLine();
+		return ficheroSalida;
+	}
+
 	/*
 	 * Método que crea el cuento loco. 
 	 * Pide el nombre del fichero de entrada con el cuento loco y el de salida identifica las palabras a completar,
@@ -23,8 +53,53 @@ public class CuentosLocos3 {
 	 * @Return: No devuelve ningún valor.
 	 */
 	public static void crearCuento(Scanner teclado) {
-	
+		Scanner scannerLectura = null;
+
+		try {
+			// Se utiliza para pedir al usuario el nombre del archivo de lectura sobre el que se va a trabajar.
+			scannerLectura = eleccionFicheroLectura(teclado);
+
+			// Fichero de salida en el que vamos a escribir el cuento rellenado por lo que nos diga el usuario.
+			PrintStream ficheroSalida = new PrintStream(eleccionFicheroSalida(teclado));
+
+			/* Recorremos el archivo de lectura y lo escribimos en el de salida, en el caso que haya 
+			 * huecos por rellenar los mostramos por pantalla al usuario para que este nos diga que quiere
+			 * introducir en dicho hueco, una palabra, una frase, un espacio en blanco...			
+			 */ 
+			escribirNuevoLibro(scannerLectura, ficheroSalida, teclado);
+
+		} catch (FileNotFoundException excepcion) {
+			System.out.println("Fichero no encontrado " + excepcion.getMessage());
+		}
 	    
+	}
+
+	/* Metodo que lee el archivo de lectura y lo pasa al archivo de salida
+	 * Cada vez que hay un hueco que debe rellenear el usuario imprime por pantalla el tipo de dato que tiene que 
+	 * seleccionar el usuario y lo escribe en el archivo de salida
+	 * @Param: Scanner scannerLectura para leer el fichero de lectura
+	 * @Param: PrintStream ficheroSalida para escribir en el fichero de salida
+	 * @Param: Scanner teclado para leer los valores introducidos por el usuario mediante teclado
+	 */
+	public static void escribirNuevoLibro(Scanner scannerLectura, PrintStream ficheroSalida, Scanner teclado) {
+		String linea = "";
+		while (scannerLectura.hasNextLine()) {
+			linea = scannerLectura.nextLine();
+			ficheroSalida.println(procesarLinea(linea));
+		}	
+	}
+
+	public static String procesarLinea(String linea) {
+		String lineaProcesada = "";
+		Scanner procesarLinea = new Scanner(linea);
+		while (procesarLinea.hasNext()) {
+			String palabra = procesarLinea.next();
+			if (palabra.startsWith("<")) {
+				
+			}
+			
+		}
+		return lineaProcesada;
 	}
 	
 	/*
@@ -36,7 +111,15 @@ public class CuentosLocos3 {
 	 * @Return: No devuelve ningún valor.
 	 */
 	public static void verCuento(Scanner teclado) {
-	
-	    
+		Scanner scannerLectura = null;
+		System.out.println("Ver un cuento:");
+		try {
+			// Se utiliza para pedir al usuario el nombre del archivo de lectura sobre el que se va a trabajar.
+			scannerLectura = eleccionFicheroLectura(teclado);
+
+		} catch (FileNotFoundException excepcion) {
+			System.out.println("Fichero no encontrado " + excepcion.getMessage());
+		}
+	    // Mostrara el fichero de salida que hemos creado antes al crear el cuento
 	}
 }
