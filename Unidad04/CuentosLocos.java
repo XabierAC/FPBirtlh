@@ -38,8 +38,8 @@ public class CuentosLocos {
 	public static Scanner eleccionFicheroLectura(Scanner teclado) throws FileNotFoundException{
 		String pathName = "";
 		System.out.println("Nombre del fichero que quieres leer: ");
-		//pathName = "/Users/xabierac/Developer/GitHub/FPBirtlh/Unidad04/" + teclado.nextLine();
-		pathName = teclado.nextLine();
+		pathName = "/Users/xabierac/Developer/GitHub/FPBirtlh/Unidad04/" + teclado.nextLine();
+		//pathName = teclado.nextLine();
 		File fichero = new File(pathName);
 		while (!fichero.canRead()) {
 			System.out.println("Fichero no encontrado. Inténtalo otra vez\n"
@@ -56,8 +56,8 @@ public class CuentosLocos {
 	 */
 	public static String eleccionFicheroSalida(Scanner teclado) {
 		System.out.println(("Nombre del fichero de salida: "));
-		//String ficheroSalida = "/Users/xabierac/Developer/GitHub/FPBirtlh/Unidad04/" + teclado.nextLine();
-		String ficheroSalida = teclado.nextLine();
+		String ficheroSalida = "/Users/xabierac/Developer/GitHub/FPBirtlh/Unidad04/" + teclado.nextLine();
+		//String ficheroSalida = teclado.nextLine();
 		return ficheroSalida;
 	}
 
