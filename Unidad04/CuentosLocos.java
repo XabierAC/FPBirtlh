@@ -8,7 +8,7 @@ public class CuentosLocos {
 		// Scanner de tipo System in para leer los datos introducidos por el usuario mediante teclado
 		Scanner teclado = new Scanner(System.in);
         presentacion();
-		crearCuento(teclado);
+		menuSeleccion(teclado);
     }
      // Metodo de presentación del programa
     public static void presentacion() {
@@ -89,6 +89,12 @@ public class CuentosLocos {
 		}	
 	}
 
+	/* Metodo para procesar cada linea individualmente
+	 * procesa cada palabra de cada linea que le llega como parametro para devolverla como otro String completo de linea
+	 * @Param: String linea es la linea que se ha recogido como String en el metodo escribirNuevoLibro
+	 * @Param: Scanner teclado para leer los valores introducidos por el usuario mediante teclado
+	 * @Return String, valor que devuelve como linea completa para que sea asi escrito en el archivo de salida
+	 */
 	public static String procesarLinea(String linea, Scanner teclado) {
 		String lineaProcesada = "";
 		Scanner procesarLinea = new Scanner(linea);
@@ -107,7 +113,6 @@ public class CuentosLocos {
 				System.out.println(palabra + ":");
 				palabra = teclado.nextLine();
 			}
-			
 			lineaProcesada += palabra + " ";
 		}
 		return lineaProcesada;
@@ -127,10 +132,32 @@ public class CuentosLocos {
 		try {
 			// Se utiliza para pedir al usuario el nombre del archivo de lectura sobre el que se va a trabajar.
 			scannerLectura = eleccionFicheroLectura(teclado);
+			mostrarPorPantalla(scannerLectura);
 
 		} catch (FileNotFoundException excepcion) {
 			System.out.println("Fichero no encontrado " + excepcion.getMessage());
 		}
-	    // Mostrara el fichero de salida que hemos creado antes al crear el cuento
+	    
 	}
+
+	public static void mostrarPorPantalla(Scanner scannerLectura) {
+		PrintStream escribirPantalla = new PrintStream(System.out);
+		while (scannerLectura.hasNextLine()) {
+			String linea = scannerLectura.nextLine();
+			escribirPantalla.println(linea);
+		}
+	}
+
+	public static char menuSeleccion(Scanner teclado) {
+		System.out.println("******* MENU *******");
+		System.out.println("(C)rear un \"Mad Lib\"");
+		System.out.println("(V)er un \"Mad Lib\"");
+		System.out.println("(S)alir");
+		System.out.println("Elija su opción:");
+		String opcion = teclado.nextLine().toUpperCase();
+		char opcionElegida = opcion.charAt(0);
+		System.out.println(opcionElegida);
+		return opcionElegida;
+	}
+
 }
