@@ -5,9 +5,7 @@
  * Modulo: Programación. 
  * UD: UD1 Estructuras de un programa. 
  * Tarea: Tarea Evaluación 01. Realiza un programa en Java.
- * 
  * Descripción del programa: El objetivo de esta tarea es realizar un programa que visualice por consola una figura simétrica
- * 
  * Enlace autoevaluación: https://docs.google.com/document/d/1UrK7qoqUiU0mcMlXnCns6qN-oP2f7zyl/edit?usp=sharing&ouid=118079182232210410949&rtpof=true&sd=true
  * 
  *******************************************************************************************************************/
