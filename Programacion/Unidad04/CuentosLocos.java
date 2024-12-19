@@ -205,8 +205,7 @@ public class CuentosLocos {
 		Scanner scannerLectura = null;
 		System.out.println("Ver un cuento");
 		try {
-			// Se utiliza para pedir al usuario el nombre del archivo de lectura sobre el
-			// que se va a trabajar.
+			// Se utiliza para pedir al usuario el nombre del archivo de lectura sobre el que se va a trabajar.
 			scannerLectura = eleccionFicheroLectura(teclado);
 			mostrarPorPantalla(scannerLectura);
 
