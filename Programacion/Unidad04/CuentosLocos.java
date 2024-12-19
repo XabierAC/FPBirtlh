@@ -21,7 +21,7 @@ public class CuentosLocos {
 		System.out.println("Agur");
 		teclado.close();
 	}
-
+	
 	// Metodo de presentación del programa
 	public static void presentacion() {
 		System.out.println("Bienvenidos y bienvenidas al juego de los cuentos locos.\n"

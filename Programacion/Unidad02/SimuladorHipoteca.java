@@ -19,11 +19,9 @@ public class SimuladorHipoteca {
     public static void mensajeInicial() {
         System.out.println("Esto es un simulador de hipoteca");
         System.out.println("PRIMERO");
-        System.out.println(
-                "Solicita el monto del préstamo (euros) e imprime una tabla con diferentes opciones según el interés y plazo");
+        System.out.println("Solicita el monto del préstamo (euros) e imprime una tabla con diferentes opciones según el interés y plazo");
         System.out.println("SEGUNDO");
-        System.out.println(
-                "Solicita el monto del préstamo (euros), la tasa de interés anual a pagar (%) y el plazo (años)");
+        System.out.println("Solicita el monto del préstamo (euros), la tasa de interés anual a pagar (%) y el plazo (años)");
         System.out.println("Calcula para cada año, el capital pendiente y la cuota a pagar, intereses y amortización");
         System.out.println();
     }
