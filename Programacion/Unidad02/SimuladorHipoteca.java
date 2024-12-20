@@ -35,8 +35,7 @@ public class SimuladorHipoteca {
         System.out.println();
         System.out.println("PRIMERO");
         System.out.println("Estas son las cuotas a pagar para diferentes intereses y plazos");
-        // Muestra las cuotas anuales para hipotecas entre 20 y 25 años segun el
-        // porcentaje de interes aplicado
+        // Muestra las cuotas anuales para hipotecas entre 20 y 25 años segun el porcentaje de interes aplicado
         for (int i = 20; i < 26; i++) {
             System.out.print(i + " Años \t");
             for (double j = 3.00; j <= 5.00; j = j + 0.5) {
