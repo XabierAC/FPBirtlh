@@ -2,7 +2,7 @@
  * 
  * Nombre: Xabier Aguirrebeitia Chica 
  * Fecha: 11/10/2024 
- * Modulo: Programación. 
+ * Modulo: Programación.
  * UD: UD1 Estructuras de un programa. 
  * Tarea: Tarea Evaluación 01. Realiza un programa en Java.
  * Descripción del programa: El objetivo de esta tarea es realizar un programa que visualice por consola una figura simétrica
