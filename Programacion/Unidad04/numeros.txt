@@ -1,5 +1,0 @@
-12  asfd     2
-
-3.5   5.5
-hola
-aqui acaba el archivo
