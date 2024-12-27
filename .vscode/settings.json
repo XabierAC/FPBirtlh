@@ -1,5 +1,6 @@
 {
     "gitlens.graph.dimMergeCommits": false,
     "gitlens.graph.highlightRowsOnRefHover": true,
-    "gitlens.graph.showRemoteNames": false
+    "gitlens.graph.showRemoteNames": false,
+    "java.debug.settings.onBuildFailureProceed": true
 }
