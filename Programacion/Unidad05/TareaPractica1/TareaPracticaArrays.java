@@ -6,17 +6,18 @@ public class TareaPracticaArrays {
     public static void main (String[] args) {
         File ficheroLectura = null;
         Scanner scannerFichero = null;
-        int[] arrayInteger = new int[10];
-        int contadorArrayInteger = 0;
-        double[] arrayDouble = new double[10];
-        int contadorArrayDouble = 0;
-        String[] arrayString = new String[10];
-        int contadorArrayString = 0;
 
         try {
             ficheroLectura = new File("/Users/xabierac/Developer/Formacion Developer All/FPBirtlh/Programacion/Unidad05/TareaPractica1/datos.txt");
             scannerFichero = new Scanner(ficheroLectura);
             scannerFichero.useLocale(Locale.ENGLISH);
+            int[] arrayInteger = new int[10];
+            int contadorArrayInteger = 0;
+            double[] arrayDouble = new double[10];
+            int contadorArrayDouble = 0;
+            String[] arrayString = new String[10];
+            int contadorArrayString = 0;
+    
             while (scannerFichero.hasNext()) {
                 if (scannerFichero.hasNextInt()){
                     contadorArrayInteger = leerInteger(contadorArrayInteger, scannerFichero.nextInt(), arrayInteger);
