@@ -1,0 +1,5 @@
+{
+    "gitlens.graph.dimMergeCommits": false,
+    "gitlens.graph.highlightRowsOnRefHover": true,
+    "gitlens.graph.showRemoteNames": false
+}
