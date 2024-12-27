@@ -26,10 +26,6 @@ public class TareaPracticaArrays {
                     contadorArrayString = leerString(contadorArrayString,scannerFichero.next(), arrayString);
                 }
             }
-            System.out.println(Arrays.toString(arrayInteger));
-            System.out.println(Arrays.toString(arrayDouble));
-            System.out.println(Arrays.toString(arrayString));
-
         } catch (FileNotFoundException e) {
             System.out.println("No se ha encontrado el fichero que buscabas, ha habido un error" + e.getMessage());
         } catch (Exception e){
