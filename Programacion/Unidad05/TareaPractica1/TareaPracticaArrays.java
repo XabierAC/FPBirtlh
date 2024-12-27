@@ -67,12 +67,12 @@ public class TareaPracticaArrays {
             escrituraDatos.print(arrayInteger[i] + " ");
         }
         escrituraDatos.println();
-        escrituraDatos.print("Nombres; ");
+        escrituraDatos.print("Nombres: ");
         for (int i = 0; i < contadorArrayString; i++) {
             escrituraDatos.print(arrayString[i] + " ");
         }
         escrituraDatos.println();
-        escrituraDatos.print("Alturas; ");
+        escrituraDatos.print("Alturas: ");
         for (int i = 0; i < contadorArrayDouble; i++) {
             escrituraDatos.print(arrayDouble[i] + " ");
         }
@@ -108,7 +108,7 @@ public class TareaPracticaArrays {
             }
         }
         promedioAltura = promedioAltura / contadorArrayDouble;
-        escrituraDatos.println("--- Estadisticas ---");
+        escrituraDatos.println("--- Estadísticas ---");
         escrituraDatos.println("Promedio de edades: " + promedioEdad);
         escrituraDatos.println("Edad máxima: " + edadMax);
         escrituraDatos.println("Edad mínima: " +edadMin);
@@ -119,8 +119,8 @@ public class TareaPracticaArrays {
 
     public static void escrituraFicheroSalida(PrintStream escrituraDatos, int[] arrayInteger, double[] arrayDouble, String[] arrayString, int contadorArrayInteger,  int contadorArrayString, int contadorArrayDouble){
         try {
-            File ficheroSalida = new File("/Users/xabierac/Developer/Formacion Developer All/FPBirtlh/Programacion/Unidad05/TareaPractica1/salida.txt");
-            //File ficheroSalida = new File("salida.txt");
+            File ficheroSalida = new File("/Users/xabierac/Developer/Formacion Developer All/FPBirtlh/Programacion/Unidad05/TareaPractica1/datos_organizados.txt");
+            //File ficheroSalida = new File("datos_organizados.txt");
             escrituraDatos = new PrintStream(ficheroSalida);
             escrituraDatos.print("Edades: ");
             for (int i = 0; i < contadorArrayInteger; i++) {
@@ -137,6 +137,7 @@ public class TareaPracticaArrays {
                 escrituraDatos.print(arrayDouble[i] + " ");
             }
             escrituraDatos.println();
+            System.out.println("Datos organizados guardados en 'datos_organizados.txt'");
 
         } catch (FileNotFoundException e) {
             System.out.println("El fichero no ha sido creado o no se localiza." + e.getMessage());
