@@ -1,0 +1,3 @@
+Edades: 25 30 18 45 
+Nombres: Juan Maria Pedro Luis 
+Alturas: 1.75 2.1 1.65 1.8 
