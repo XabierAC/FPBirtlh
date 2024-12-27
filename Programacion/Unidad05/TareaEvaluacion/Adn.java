@@ -73,7 +73,7 @@ public class Adn {
      * @param: no recibe ningún parámetro
      * @return: devuelve true si la secuencia de ADN podría ser un gen que codifica una proteina, false en caso contrario.
      */
-    public static boolean comprobarEsProteina(º){
+    public static boolean comprobarEsProteina(){
         boolean esProteina = false;
 
         return esProteina;
