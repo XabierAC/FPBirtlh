@@ -27,17 +27,17 @@ public class Adn {
 
     /* Método para escribir todos los resultados obtenidos en el fichero.
      * Tambien servira para mostrar los resultados por consola.
-     * @param: 
+     * @param:  descripcionCadena indica el identificador de la cadena, esProteina indica si la cadena podria codificar la proteina, masaTotal indica la masa total de los nucleolitos
      * @return: no devuelve ningún valor. 
      */
-    public static void escribirFichero(PrintStream escrituraFichero){
+    public static void escribirFichero(PrintStream escrituraFichero,String descripcionCadena, boolean esProteina, double masaTotal){
 
-        escrituraFichero.println("Descripción: " + "nombre de la cadena de adn");
+        escrituraFichero.println("Descripción: " + descripcionCadena);
         escrituraFichero.println("Nucleólitos: " + "Cadena de ADN");
         escrituraFichero.println("Contadores: " + "array nucleolitos");
-        escrituraFichero.println("Masa (%): " + "array masaNucleolitos" + " de " + "masaTotal");
+        escrituraFichero.println("Masa (%): " + "array masaNucleolitos" + " de " + masaTotal);
         escrituraFichero.println("Lista Codones: " + "array con la lista de codones");
-        escrituraFichero.println("Es proteina: " + "true o false");
+        escrituraFichero.println("Es proteina: " + esProteina);
     }
 
     /* Método para calcular la masa total de los distintos nucleolitos
