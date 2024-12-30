@@ -32,8 +32,8 @@ public class Adn {
                 String descripcionCadena = scannerLectura.nextLine();
                 String cadenaAdn = scannerLectura.nextLine().toUpperCase();
                 // Trabamos para calcular todos los datos necesarios de la cadena y damos formato por pantalla y por fichero.
-                calculoTipoNucleolitos(cadenaAdn, nucleolitos);
-                System.out.println(Arrays.toString(nucleolitos));
+                int basura = calculoTipoNucleolitos(cadenaAdn, nucleolitos);
+                System.out.println(Arrays.toString(nucleolitos) + " " + basura);
                 //calculoMasaNucleolitos(nucleolitos, cadenaAdn);
                 reinicioArrayNucleolitos(nucleolitos);
             }
@@ -45,8 +45,9 @@ public class Adn {
         scannerLectura.close();
     }
 
-    public static void calculoTipoNucleolitos(String cadenaAdn, int[] nucleolitos){
+    public static int calculoTipoNucleolitos(String cadenaAdn, int[] nucleolitos){
         char tipoNucleolitoChar;
+        int contadorBasura = 0;
         for (int i = 0; i < cadenaAdn.length(); i++) {
             tipoNucleolitoChar = cadenaAdn.charAt(i);
             if (tipoNucleolitoChar == 'A') {
@@ -55,10 +56,13 @@ public class Adn {
                 nucleolitos[1]++;
             } else if (tipoNucleolitoChar == 'G') {
                 nucleolitos[2]++;
-            } else  if (tipoNucleolitoChar == 'T'){
+            } else if (tipoNucleolitoChar == 'T') {
                 nucleolitos[3]++;
+            } else if (tipoNucleolitoChar == '-') {
+                contadorBasura ++;
             }
         }
+        return contadorBasura;
     }
 
     /* Método para escribir todos los resultados obtenidos en el fichero.
