@@ -3,22 +3,22 @@ import java.io.*;
 import java.util.*;
 public class Adn {
 
-    final double masaAdeninaA = 135.128;
-    final double masaCitosinaC = 111.103;
-    final double masaGuaninaG = 151.128;
-    final double masaTiaminaT = 125.107;
-    final double masaBasura = 100.000;
-    final int minCodones = 5;
-    final int portentajeCitosinaGuanina = 30;
-    final static int tiposNucleolitos = 4;
-    final int nucleolitosCodon = 3;
+    static final double masaAdeninaA = 135.128;
+    static final double masaCitosinaC = 111.103;
+    static final double masaGuaninaG = 151.128;
+    static final double masaTiaminaT = 125.107;
+    static final double masaBasura = 100.000;
+    static final int minCodones = 5;
+    static final int portentajeCitosinaGuanina = 30;
+    static final int tiposNucleotidos = 4;
+    static final int nucleolitosCodon = 3;
 
-    static int[] nucleolitos = new int[tiposNucleolitos];
-    double[] masaNucleolitos = new double[4];
-    String[] listaCodones;
+    static int[] nucleotidos = new int[tiposNucleotidos];
+    static double[] masaNucleotidos = new double[4];
+    static String[] listaCodones;
     
-    /* Programa que sirve para generar información importante sobre nucleolitos, simulando que trabaja como los biólogos computacioneles. 
-     * Mostrará cuantas veces aparece cada tipo de nucleolito, el porcentaje de masa correspondiente, los codones, indicarña si la 
+    /* Programa que sirve para generar información importante sobre nucleotidos, simulando que trabaja como los biólogos computacioneles. 
+     * Mostrará cuantas veces aparece cada tipo de nucleotido, el porcentaje de masa correspondiente, los codones, indicarña si la 
      * secuencia podría ser un gen que codifica la proteina o no.
      */
     public static void main (String[] args) {
@@ -32,10 +32,10 @@ public class Adn {
                 String descripcionCadena = scannerLectura.nextLine();
                 String cadenaAdn = scannerLectura.nextLine().toUpperCase();
                 // Trabamos para calcular todos los datos necesarios de la cadena y damos formato por pantalla y por fichero.
-                int basura = calculoTipoNucleolitos(cadenaAdn, nucleolitos);
-                System.out.println(Arrays.toString(nucleolitos) + " " + basura);
-                //calculoMasaNucleolitos(nucleolitos, cadenaAdn);
-                reinicioArrayNucleolitos(nucleolitos);
+                int basura = calculoTipoNucleotidos(cadenaAdn, nucleotidos);
+                double masaTotal = calculoMasaNucleotidos(nucleotidos, basura);
+                System.out.println(masaTotal);
+                reinicioArrayNucleotidos(nucleotidos);
             }
         } catch (FileNotFoundException e) {
             System.out.println("No se ha localizado el archivo que queria leer. " + e.getMessage());
@@ -45,19 +45,23 @@ public class Adn {
         scannerLectura.close();
     }
 
-    public static int calculoTipoNucleolitos(String cadenaAdn, int[] nucleolitos){
+    /* Método para calcular cuantas veces aparece cada uno de los tipos de nucleotidos en la cadena.
+     * @param: cadenaAdn con la secuencia de ADN de tipo String, array nucleotidos con el array donde vamos a indicar cuantas veces aparece cada tipo.
+     * @return: devuelve el número de nucleotidos considerados basura.
+     */
+    public static int calculoTipoNucleotidos(String cadenaAdn, int[] nucleotidos){
         char tipoNucleolitoChar;
         int contadorBasura = 0;
         for (int i = 0; i < cadenaAdn.length(); i++) {
             tipoNucleolitoChar = cadenaAdn.charAt(i);
             if (tipoNucleolitoChar == 'A') {
-                nucleolitos[0]++;
+                nucleotidos[0]++;
             } else if (tipoNucleolitoChar == 'C') {
-                nucleolitos[1]++;
+                nucleotidos[1]++;
             } else if (tipoNucleolitoChar == 'G') {
-                nucleolitos[2]++;
+                nucleotidos[2]++;
             } else if (tipoNucleolitoChar == 'T') {
-                nucleolitos[3]++;
+                nucleotidos[3]++;
             } else if (tipoNucleolitoChar == '-') {
                 contadorBasura ++;
             }
@@ -70,31 +74,48 @@ public class Adn {
      * @param:  descripcionCadena indica el identificador de la cadena, esProteina indica si la cadena podria codificar la proteina, masaTotal indica la masa total de los nucleolitos
      * @return: no devuelve ningún valor. 
      */
-    public static void escribirFichero(PrintStream escrituraFichero,String descripcionCadena, boolean esProteina, double masaTotal){
+    public static void escribirFichero(PrintStream escrituraFichero,String descripcionCadena, boolean esProteina, double masaTotal, String cadenaAdn){
 
         escrituraFichero.println("Descripción: " + descripcionCadena);
-        escrituraFichero.println("Nucleólitos: " + "Cadena de ADN");
-        escrituraFichero.println("Contadores: " + "array nucleolitos");
-        escrituraFichero.println("Masa (%): " + "array masaNucleolitos" + " de " + masaTotal);
+        escrituraFichero.println("Nucleótidos: " + cadenaAdn);
+        escrituraFichero.println("Contadores: " + "array nucleotidos");
+        escrituraFichero.println("Masa (%): " + "array masaNucleotidos" + " de " + masaTotal);
         escrituraFichero.println("Lista Codones: " + "array con la lista de codones");
         escrituraFichero.println("Es proteina: " + esProteina);
     }
 
-    /* Método para calcular la masa total de los distintos nucleolitos
-     * @param: array nucleolitos con las veces que aparece cada tipo de nucleolito
-     * @return: la masa total de los nucleolitos
+    /* Método para calcular la masa total de los distintos nucleotidos
+     * @param: array nucleolitos con las veces que aparece cada tipo de nucleotido
+     * @return: la masa total de los nucleotidos
      */
-    public static double calculoMasaNucleolitos(int[] nucleolitos, String cadenaAdn){
+    public static double calculoMasaNucleotidos(int[] nucleotidos, int contadorBasura){
         double masaTotal = 0;
-
+        int contador = 0;
+        while (contador < tiposNucleotidos) {
+            if (contador == 0) {
+                masaTotal += nucleotidos[contador] * masaAdeninaA;
+                contador ++;
+            } else if (contador == 1){
+                masaTotal += nucleotidos[contador] * masaCitosinaC;
+                contador ++;
+            } else if (contador == 2){
+                masaTotal += nucleotidos[contador] * masaGuaninaG;
+                contador ++;
+            } else if (contador == 3){
+                masaTotal += nucleotidos[contador] * masaTiaminaT;
+                contador ++;
+            }
+        }
+        masaTotal += contadorBasura * masaBasura;
+        
         return masaTotal;
     }
 
-    /* Método para calcular el porcentaje de la masa total que tiene cada uno de los tipos de nucleolitos
-     * @param: masaTotal del todos los nucleolitos, array de los nucleolitos para saber cuantos hay de cada tipo, masaNucleolitos para añadir los porcentajes al array
-     * @return: el array con los porcentajes de cada nucleolito.
+    /* Método para calcular el porcentaje de la masa total que tiene cada uno de los tipos de nucleotidos
+     * @param: masaTotal del todos los nucleotidos, array de los nucleotidos para saber cuantos hay de cada tipo, masaNucleotidos para añadir los porcentajes al array
+     * @return: el array con los porcentajes de cada nucleotido.
      */
-    public static void calculoPorcentajeMasaNucleolitos(double masaTotal, double[] nucleolito, double[] masaNucleolitos){
+    public static void calculoPorcentajeMasaNucleotidos(double masaTotal, double[] nucleotido, double[] masaNucleotidos){
         
     }
 
@@ -118,9 +139,14 @@ public class Adn {
         // Comienza por ATG, finaliza en TAA-TAG-TGA, contiene al menos 5 codones, C + G >= 30%
         return esProteina;
     }
-    public static void reinicioArrayNucleolitos(int[] nucleolitos) {
-        for (int i =0; i < nucleolitos.length; i++) {
-            nucleolitos[i] = 0;
+    
+    /* Método para reiniciar el array de nucleotidos a 0 para que no se acumulen los de la cadena anterior al aparecer por consola o al guardarlos en el fichero de salida
+     * @param: array de los nucleotidos
+     * @return: no devuelve ningun valor.
+     */
+    public static void reinicioArrayNucleotidos(int[] nucleotidos) {
+        for (int i =0; i < nucleotidos.length; i++) {
+            nucleotidos[i] = 0;
         }
     }
 }
