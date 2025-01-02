@@ -14,7 +14,8 @@ public class Adn {
     static final int nucleolitosCodon = 3;
 
     static int[] nucleotidos = new int[tiposNucleotidos];
-    static double[] masaNucleotidos = new double[4];
+    static double[] masaCadaNucleotido = {135.128, 111.103, 151.128, 125.107, 100.000};
+    static double[] masaNucleotidos = new double[tiposNucleotidos];
     static String[] listaCodones;
     
     /* Programa que sirve para generar información importante sobre nucleotidos, simulando que trabaja como los biólogos computacioneles. 
@@ -34,7 +35,10 @@ public class Adn {
                 // Trabamos para calcular todos los datos necesarios de la cadena y damos formato por pantalla y por fichero.
                 int basura = calculoTipoNucleotidos(cadenaAdn, nucleotidos);
                 double masaTotal = calculoMasaNucleotidos(nucleotidos, basura);
+                calculoPorcentajeMasaNucleotidos(masaTotal, nucleotidos, masaNucleotidos);
+                System.out.println(Arrays.toString(nucleotidos));
                 System.out.println(masaTotal);
+                System.out.println(Arrays.toString(masaNucleotidos));
                 reinicioArrayNucleotidos(nucleotidos);
             }
         } catch (FileNotFoundException e) {
@@ -115,8 +119,10 @@ public class Adn {
      * @param: masaTotal del todos los nucleotidos, array de los nucleotidos para saber cuantos hay de cada tipo, masaNucleotidos para añadir los porcentajes al array
      * @return: el array con los porcentajes de cada nucleotido.
      */
-    public static void calculoPorcentajeMasaNucleotidos(double masaTotal, double[] nucleotido, double[] masaNucleotidos){
-        
+    public static void calculoPorcentajeMasaNucleotidos(double masaTotal, int[] nucleotido, double[] masaNucleotidos){
+        for (int i = 0; i < tiposNucleotidos; i ++) {
+            masaNucleotidos[i] = nucleotido[i] * masaCadaNucleotido[i] * 100 / masaTotal;
+        }
     }
 
     /* Método para calcular los codones de la cadena de ADN y almacenarlos como tal en un array.
