@@ -93,7 +93,7 @@ public class Adn {
     }
 
     /* Método para calcular la masa total de los distintos nucleotidos
-     * @param: array nucleolitos con las veces que aparece cada tipo de nucleotido
+     * @param: array nucleolitos con las veces que aparece cada tipo de nucleotido y contadorBasura con el nímero de nucleotidos considerados basura
      * @return: la masa total de los nucleotidos
      */
     public static double calculoMasaNucleotidos(int[] nucleotidos, int contadorBasura){
@@ -130,7 +130,7 @@ public class Adn {
     }
 
     /* Método para calcular los codones de la cadena de ADN y almacenarlos como tal en un array.
-     * @param: cadenaAdn con la secuencia de ADN
+     * @param: cadenaAdn con la secuencia de ADN y nucleotidos con el array de la cantidad de cada tipo de nucleotido
      * @return: no devuelve ningún valor.
      */
     public static void calculoCodones(String cadenaAdn, int[] nucleotidos){
@@ -158,7 +158,7 @@ public class Adn {
     }
 
     /* Método para comprobar si la secuencia de ADN podría ser un gen que codifica una proteina
-     * @param: no recibe ningún parámetro
+     * @param: listaCodones con la lista de los codones que genera la cadena, masaNucleotidos con el porcentaje de masa de cada tipo de nucleotido
      * @return: devuelve true si la secuencia de ADN podría ser un gen que codifica una proteina, false en caso contrario.
      */
     public static boolean comprobarEsProteina(String[] listaCodones, double[] masaNucleotidos){
