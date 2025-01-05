@@ -37,11 +37,8 @@ public class Adn {
                 double masaTotal = calculoMasaNucleotidos(nucleotidos, basura);
                 calculoPorcentajeMasaNucleotidos(masaTotal, nucleotidos, masaNucleotidos);
                 calculoCodones(cadenaAdn, nucleotidos);
-                System.out.println(Arrays.toString(nucleotidos));
-                System.out.println(masaTotal);
-                System.out.println(Arrays.toString(masaNucleotidos));
-                System.out.println(Arrays.toString(listaCodones));
-                System.out.println(comprobarEsProteina(listaCodones, masaNucleotidos));
+                boolean esProteina = comprobarEsProteina(listaCodones, masaNucleotidos);
+                escribir(System.out, descripcionCadena, esProteina, masaTotal, cadenaAdn, nucleotidos, masaNucleotidos, listaCodones);
                 reinicioArrayNucleotidos(nucleotidos);
 
             }
@@ -82,14 +79,15 @@ public class Adn {
      * @param:  descripcionCadena indica el identificador de la cadena, esProteina indica si la cadena podria codificar la proteina, masaTotal indica la masa total de los nucleolitos
      * @return: no devuelve ningún valor. 
      */
-    public static void escribirFichero(PrintStream escrituraFichero,String descripcionCadena, boolean esProteina, double masaTotal, String cadenaAdn){
+    public static void escribir(PrintStream escrituraFichero,String descripcionCadena, boolean esProteina, double masaTotal, String cadenaAdn, int[] nucleotidos, double[] masaNucleotidos, String[] listaCodones){
 
         escrituraFichero.println("Descripción: " + descripcionCadena);
         escrituraFichero.println("Nucleótidos: " + cadenaAdn);
-        escrituraFichero.println("Contadores: " + "array nucleotidos");
-        escrituraFichero.println("Masa (%): " + "array masaNucleotidos" + " de " + masaTotal);
-        escrituraFichero.println("Lista Codones: " + "array con la lista de codones");
+        escrituraFichero.println("Contadores: " + Arrays.toString(nucleotidos));
+        escrituraFichero.println("Masa (%): " + Arrays.toString(masaNucleotidos) + " de " + masaTotal);
+        escrituraFichero.println("Lista Codones: " + Arrays.toString(listaCodones));
         escrituraFichero.println("Es proteina: " + esProteina);
+        System.out.println();
     }
 
     /* Método para calcular la masa total de los distintos nucleotidos
