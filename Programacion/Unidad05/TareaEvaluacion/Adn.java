@@ -25,8 +25,11 @@ public class Adn {
     public static void main (String[] args) {
         Scanner scannerLectura = null;
         PrintStream escrituraLineas = null;
-
+        presentacion();
         try {
+            // tengo que hacer que pida un fichero de entrada y uno de salida
+            // Introduce el nombre del fichero: 
+            // Introduce el nombre del fichero: 
             File ficheroLectura = new File("/Users/xabierac/Developer/Formacion Developer All/FPBirtlh/Programacion/Unidad05/TareaEvaluacion/dna.txt");
             scannerLectura = new Scanner(ficheroLectura);
             while (scannerLectura.hasNextLine()) {
@@ -88,6 +91,7 @@ public class Adn {
         escrituraFichero.println("Lista Codones: " + Arrays.toString(listaCodones));
         escrituraFichero.println("Es proteina: " + esProteina);
         System.out.println();
+        escrituraFichero.close();
     }
 
     /* Método para calcular la masa total de los distintos nucleotidos
