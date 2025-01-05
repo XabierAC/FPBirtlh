@@ -36,10 +36,14 @@ public class Adn {
                 int basura = calculoTipoNucleotidos(cadenaAdn, nucleotidos);
                 double masaTotal = calculoMasaNucleotidos(nucleotidos, basura);
                 calculoPorcentajeMasaNucleotidos(masaTotal, nucleotidos, masaNucleotidos);
+                calculoCodones(cadenaAdn, nucleotidos);
                 System.out.println(Arrays.toString(nucleotidos));
                 System.out.println(masaTotal);
                 System.out.println(Arrays.toString(masaNucleotidos));
+                System.out.println(Arrays.toString(listaCodones));
+                System.out.println(comprobarEsProteina(listaCodones, masaNucleotidos));
                 reinicioArrayNucleotidos(nucleotidos);
+
             }
         } catch (FileNotFoundException e) {
             System.out.println("No se ha localizado el archivo que queria leer. " + e.getMessage());
@@ -119,9 +123,9 @@ public class Adn {
      * @param: masaTotal del todos los nucleotidos, array de los nucleotidos para saber cuantos hay de cada tipo, masaNucleotidos para añadir los porcentajes al array
      * @return: el array con los porcentajes de cada nucleotido.
      */
-    public static void calculoPorcentajeMasaNucleotidos(double masaTotal, int[] nucleotido, double[] masaNucleotidos){
+    public static void calculoPorcentajeMasaNucleotidos(double masaTotal, int[] nucleotidos, double[] masaNucleotidos){
         for (int i = 0; i < tiposNucleotidos; i ++) {
-            masaNucleotidos[i] = nucleotido[i] * masaCadaNucleotido[i] * 100 / masaTotal;
+            masaNucleotidos[i] = nucleotidos[i] * masaCadaNucleotido[i] * 100 / masaTotal;
         }
     }
 
@@ -129,20 +133,40 @@ public class Adn {
      * @param: cadenaAdn con la secuencia de ADN
      * @return: no devuelve ningún valor.
      */
-    public static int calculoCodones(String cadenaAdn){
+    public static void calculoCodones(String cadenaAdn, int[] nucleotidos){
         int contador = 0;
-        // La cadena de ADN puede contener giones, los cuales cuentan para la suma, pero no para el array de muestra de codones.
-        return contador;
-
+        String palabra = "";
+        int posArray = 0;
+        int lenghtArray = 0;
+        for (int i = 0; i < nucleotidos.length; i ++) {
+            lenghtArray += nucleotidos[i];
+        }
+        listaCodones = new String[lenghtArray/3];
+        for (int i = 0; i < cadenaAdn.length(); i ++) {
+            char letra = cadenaAdn.charAt(i);
+            if (letra != '-') {
+                palabra += letra;
+                contador ++;
+            }
+            if (contador == nucleolitosCodon) {
+                listaCodones[posArray] = palabra;
+                palabra = "";
+                contador = 0;
+                posArray ++;
+            }
+        }
     }
 
     /* Método para comprobar si la secuencia de ADN podría ser un gen que codifica una proteina
      * @param: no recibe ningún parámetro
      * @return: devuelve true si la secuencia de ADN podría ser un gen que codifica una proteina, false en caso contrario.
      */
-    public static boolean comprobarEsProteina(){
+    public static boolean comprobarEsProteina(String[] listaCodones, double[] masaNucleotidos){
         boolean esProteina = false;
         // Comienza por ATG, finaliza en TAA-TAG-TGA, contiene al menos 5 codones, C + G >= 30%
+        if (listaCodones[0].equals("ATG") && listaCodones[listaCodones.length - 1].equals("TAA") || listaCodones[listaCodones.length - 1].equals("TAG") || listaCodones[listaCodones.length - 1].equals("TGA") && listaCodones.length >= minCodones && masaNucleotidos[1] + masaNucleotidos[2] >= portentajeCitosinaGuanina) {
+            esProteina = true;
+        }
         return esProteina;
     }
     
@@ -154,5 +178,9 @@ public class Adn {
         for (int i =0; i < nucleotidos.length; i++) {
             nucleotidos[i] = 0;
         }
+    }
+
+    public static void presentacion() {
+
     }
 }
