@@ -180,7 +180,14 @@ public class Adn {
         }
     }
 
+    /* Metodo que muestra el mensaje de presentación del programa
+     * @param: no recibe ningún parámetro
+     * @return: no devuelve ningun valor
+     */
     public static void presentacion() {
-
+        System.out.println("Este programa genera información sobre");
+        System.out.println("secuencias de nucleótidos de ADN contenidas en un fichero");
+        System.out.println("También indicará si pueden codificar proteinas o no");
+        System.out.println("Todos los resultados se guardarán en un fichero de salida");
     }
 }
