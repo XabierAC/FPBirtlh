@@ -1,5 +1,6 @@
 package Programacion.Unidad05.TareaEvaluacion;
 import java.io.*;
+import java.text.DecimalFormat;
 import java.util.*;
 public class Adn {
 
@@ -23,15 +24,17 @@ public class Adn {
      * secuencia podría ser un gen que codifica la proteina o no.
      */
     public static void main (String[] args) {
+        Scanner input = new Scanner(System.in);
         Scanner scannerLectura = null;
         PrintStream escrituraLineas = null;
         presentacion();
+        System.out.println("Introduce el nombre del fichero: ");
         try {
-            // tengo que hacer que pida un fichero de entrada y uno de salida
-            // Introduce el nombre del fichero: 
-            // Introduce el nombre del fichero: 
-            File ficheroLectura = new File("/Users/xabierac/Developer/Formacion Developer All/FPBirtlh/Programacion/Unidad05/TareaEvaluacion/dna.txt");
-            scannerLectura = new Scanner(ficheroLectura);
+            File ficheroEntrada = new File("/Users/xabierac/Developer/Formacion Developer All/FPBirtlh/Programacion/Unidad05/TareaEvaluacion/" + input.nextLine());
+            scannerLectura = new Scanner(ficheroEntrada);
+            System.out.println("Introduce el nombre del fichero: ");
+            File ficheroSalida = new File("/Users/xabierac/Developer/Formacion Developer All/FPBirtlh/Programacion/Unidad05/TareaEvaluacion/" + input.nextLine());
+            escrituraLineas = new PrintStream(ficheroSalida);
             while (scannerLectura.hasNextLine()) {
                 String descripcionCadena = scannerLectura.nextLine();
                 String cadenaAdn = scannerLectura.nextLine().toUpperCase();
@@ -43,7 +46,6 @@ public class Adn {
                 boolean esProteina = comprobarEsProteina(listaCodones, masaNucleotidos);
                 escribir(System.out, descripcionCadena, esProteina, masaTotal, cadenaAdn, nucleotidos, masaNucleotidos, listaCodones);
                 reinicioArrayNucleotidos(nucleotidos);
-
             }
         } catch (FileNotFoundException e) {
             System.out.println("No se ha localizado el archivo que queria leer. " + e.getMessage());
@@ -51,6 +53,7 @@ public class Adn {
             System.out.println("Ha habido un error inesperado." + e.getMessage());
         }
         scannerLectura.close();
+        input.close();
     }
 
     /* Método para calcular cuantas veces aparece cada uno de los tipos de nucleotidos en la cadena.
@@ -87,11 +90,12 @@ public class Adn {
         escrituraFichero.println("Descripción: " + descripcionCadena);
         escrituraFichero.println("Nucleótidos: " + cadenaAdn);
         escrituraFichero.println("Contadores: " + Arrays.toString(nucleotidos));
-        escrituraFichero.println("Masa (%): " + Arrays.toString(masaNucleotidos) + " de " + masaTotal);
+        escrituraFichero.print("Masa (%): " + Arrays.toString(masaNucleotidos));
+        System.out.printf(" de %.1f ", masaTotal);
+        System.out.println();
         escrituraFichero.println("Lista Codones: " + Arrays.toString(listaCodones));
         escrituraFichero.println("Es proteina: " + esProteina);
         System.out.println();
-        escrituraFichero.close();
     }
 
     /* Método para calcular la masa total de los distintos nucleotidos
@@ -127,7 +131,9 @@ public class Adn {
      */
     public static void calculoPorcentajeMasaNucleotidos(double masaTotal, int[] nucleotidos, double[] masaNucleotidos){
         for (int i = 0; i < tiposNucleotidos; i ++) {
-            masaNucleotidos[i] = nucleotidos[i] * masaCadaNucleotido[i] * 100 / masaTotal;
+            double numero = (nucleotidos[i] * masaCadaNucleotido[i] * 100 / masaTotal)*10;
+            numero = Math.round(numero);
+            masaNucleotidos[i] = numero/10;
         }
     }
 
