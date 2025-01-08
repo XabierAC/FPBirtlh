@@ -1,6 +1,5 @@
 package Programacion.Unidad05.TareaEvaluacion;
 import java.io.*;
-import java.text.DecimalFormat;
 import java.util.*;
 public class Adn {
 
@@ -38,13 +37,13 @@ public class Adn {
             while (scannerLectura.hasNextLine()) {
                 String descripcionCadena = scannerLectura.nextLine();
                 String cadenaAdn = scannerLectura.nextLine().toUpperCase();
-                // Trabamos para calcular todos los datos necesarios de la cadena y damos formato por pantalla y por fichero.
                 int basura = calculoTipoNucleotidos(cadenaAdn, nucleotidos);
                 double masaTotal = calculoMasaNucleotidos(nucleotidos, basura);
                 calculoPorcentajeMasaNucleotidos(masaTotal, nucleotidos, masaNucleotidos);
                 calculoCodones(cadenaAdn, nucleotidos);
-                boolean esProteina = comprobarEsProteina(listaCodones, masaNucleotidos);
+                String esProteina = comprobarEsProteina(listaCodones, masaNucleotidos);
                 escribir(System.out, descripcionCadena, esProteina, masaTotal, cadenaAdn, nucleotidos, masaNucleotidos, listaCodones);
+                escribir(escrituraLineas, descripcionCadena, esProteina, masaTotal, cadenaAdn, nucleotidos, masaNucleotidos, listaCodones);
                 reinicioArrayNucleotidos(nucleotidos);
             }
         } catch (FileNotFoundException e) {
@@ -85,17 +84,17 @@ public class Adn {
      * @param:  descripcionCadena indica el identificador de la cadena, esProteina indica si la cadena podria codificar la proteina, masaTotal indica la masa total de los nucleolitos
      * @return: no devuelve ningún valor. 
      */
-    public static void escribir(PrintStream escrituraFichero,String descripcionCadena, boolean esProteina, double masaTotal, String cadenaAdn, int[] nucleotidos, double[] masaNucleotidos, String[] listaCodones){
+    public static void escribir(PrintStream escrituraFichero,String descripcionCadena, String esProteina, double masaTotal, String cadenaAdn, int[] nucleotidos, double[] masaNucleotidos, String[] listaCodones){
 
         escrituraFichero.println("Descripción: " + descripcionCadena);
         escrituraFichero.println("Nucleótidos: " + cadenaAdn);
         escrituraFichero.println("Contadores: " + Arrays.toString(nucleotidos));
         escrituraFichero.print("Masa (%): " + Arrays.toString(masaNucleotidos));
-        System.out.printf(" de %.1f ", masaTotal);
-        System.out.println();
+        escrituraFichero.printf(" de %.1f ", masaTotal);
+        escrituraFichero.println();
         escrituraFichero.println("Lista Codones: " + Arrays.toString(listaCodones));
-        escrituraFichero.println("Es proteina: " + esProteina);
-        System.out.println();
+        escrituraFichero.println("Es proteína: " + esProteina);
+        escrituraFichero.println();
     }
 
     /* Método para calcular la masa total de los distintos nucleotidos
@@ -169,11 +168,10 @@ public class Adn {
      * @param: listaCodones con la lista de los codones que genera la cadena, masaNucleotidos con el porcentaje de masa de cada tipo de nucleotido
      * @return: devuelve true si la secuencia de ADN podría ser un gen que codifica una proteina, false en caso contrario.
      */
-    public static boolean comprobarEsProteina(String[] listaCodones, double[] masaNucleotidos){
-        boolean esProteina = false;
-        // Comienza por ATG, finaliza en TAA-TAG-TGA, contiene al menos 5 codones, C + G >= 30%
+    public static String comprobarEsProteina(String[] listaCodones, double[] masaNucleotidos){
+        String esProteina = "NO";
         if (listaCodones[0].equals("ATG") && listaCodones[listaCodones.length - 1].equals("TAA") || listaCodones[listaCodones.length - 1].equals("TAG") || listaCodones[listaCodones.length - 1].equals("TGA") && listaCodones.length >= minCodones && masaNucleotidos[1] + masaNucleotidos[2] >= portentajeCitosinaGuanina) {
-            esProteina = true;
+            esProteina = "SI";
         }
         return esProteina;
     }
@@ -183,7 +181,7 @@ public class Adn {
      * @return: no devuelve ningun valor.
      */
     public static void reinicioArrayNucleotidos(int[] nucleotidos) {
-        for (int i =0; i < nucleotidos.length; i++) {
+        for (int i = 0; i < nucleotidos.length; i ++) {
             nucleotidos[i] = 0;
         }
     }
@@ -196,6 +194,6 @@ public class Adn {
         System.out.println("Este programa genera información sobre");
         System.out.println("secuencias de nucleótidos de ADN contenidas en un fichero");
         System.out.println("También indicará si pueden codificar proteinas o no");
-        System.out.println("Todos los resultados se guardarán en un fichero de salida");
+        System.out.println("Todos los resultados se guardarán en un fichero");
     }
 }
