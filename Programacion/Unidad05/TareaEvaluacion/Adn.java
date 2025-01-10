@@ -23,6 +23,8 @@ public class Adn {
      * secuencia podría ser un gen que codifica la proteina o no.
      */
     public static void main (String[] args) {
+        Locale.setDefault(new Locale("en", "US"));
+        // Hay que dar formato a los numeros decimales para que coincida, quizas un locale?
         Scanner input = new Scanner(System.in);
         Scanner scannerLectura = null;
         PrintStream escrituraLineas = null;
@@ -30,9 +32,11 @@ public class Adn {
         System.out.println("Introduce el nombre del fichero: ");
         try {
             File ficheroEntrada = new File("/Users/xabierac/Developer/Formacion Developer All/FPBirtlh/Programacion/Unidad05/TareaEvaluacion/" + input.nextLine());
+            //File ficheroEntrada = new File(input.nextLine());
             scannerLectura = new Scanner(ficheroEntrada);
             System.out.println("Introduce el nombre del fichero: ");
             File ficheroSalida = new File("/Users/xabierac/Developer/Formacion Developer All/FPBirtlh/Programacion/Unidad05/TareaEvaluacion/" + input.nextLine());
+            //File ficheroSalida = new File(input.nextLine());
             escrituraLineas = new PrintStream(ficheroSalida);
             while (scannerLectura.hasNextLine()) {
                 String descripcionCadena = scannerLectura.nextLine();
@@ -170,8 +174,19 @@ public class Adn {
      */
     public static String comprobarEsProteina(String[] listaCodones, double[] masaNucleotidos){
         String esProteina = "NO";
-        if (listaCodones[0].equals("ATG") && listaCodones[listaCodones.length - 1].equals("TAA") || listaCodones[listaCodones.length - 1].equals("TAG") || listaCodones[listaCodones.length - 1].equals("TGA") && listaCodones.length >= minCodones && masaNucleotidos[1] + masaNucleotidos[2] >= portentajeCitosinaGuanina) {
-            esProteina = "SI";
+        //if ((listaCodones.length >= minCodones) && (masaNucleotidos[1] + masaNucleotidos[2] >= portentajeCitosinaGuanina) && 
+        //(listaCodones[0].equals("ATG")) && (listaCodones[listaCodones.length - 1].equals("TAA")) || (listaCodones[listaCodones.length - 1].equals("TAG")) || 
+        //(listaCodones[listaCodones.length - 1].equals("TGA"))) {
+        //    esProteina = "SI";
+        //}
+        if (listaCodones.length >= minCodones) {
+            if (masaNucleotidos[1] + masaNucleotidos[2] >= portentajeCitosinaGuanina) {
+                if (listaCodones[0].equals("ATG")) {
+                    if (listaCodones[listaCodones.length - 1].equals("TAA") || listaCodones[listaCodones.length - 1].equals("TAG") || listaCodones[listaCodones.length - 1].equals("TGA")) {
+                        esProteina = "SI";
+                    }
+                }
+            }
         }
         return esProteina;
     }
