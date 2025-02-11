@@ -1,4 +1,4 @@
-package Programacion.Unidad05.TareaPractica1;
+package Unidad05.TareaPractica1;
 import java.util.*;
 import java.io.*;
 public class TareaPracticaArrays {

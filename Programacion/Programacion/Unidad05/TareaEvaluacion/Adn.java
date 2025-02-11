@@ -23,7 +23,7 @@ public class Adn {
      * secuencia podría ser un gen que codifica la proteina o no.
      */
     public static void main (String[] args) {
-        Locale.setDefault(new Locale("en", "US"));
+        Locale.setDefault(Locale.of("en", "US"));
         // Hay que dar formato a los numeros decimales para que coincida, quizas un locale?
         Scanner input = new Scanner(System.in);
         Scanner scannerLectura = null;
