@@ -1,5 +1,7 @@
 package Clases_y_Objetos;
 
+import java.util.*;
+
 public class Persona {
     private String nombre;
     private int edad;
@@ -14,11 +16,14 @@ public class Persona {
     }
     
     public void setEdad(int edad) {
-        if(edad <= 0) {
+        while (edad <= 0) {
             System.out.println("Error: La edad introducida no puede ser negativa o cero");
-        } else {
-            this.edad = edad;
+            System.out.println("Introduce una edad válida.");
+            Scanner input = new Scanner(System.in);
+            edad = Integer.parseInt(input.nextLine());
+            input.close();
         }
+        this.edad = edad;
     }
 
     public int getEdad() {
@@ -27,8 +32,6 @@ public class Persona {
 
     public static void main(String[] args) {
         Persona persona = new Persona("Xabier", 29);
-        persona.saludar();
-        persona.setEdad (28);
         persona.saludar();
     }
 }
