@@ -1,4 +1,4 @@
-package Clases_y_Objetos;
+
 
 public class CuentaBancaria {
     private String titular;

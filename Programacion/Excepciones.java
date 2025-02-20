@@ -1,4 +1,4 @@
-package Excepciones;
+
 import java.util.*;
 
 public class Excepciones {
